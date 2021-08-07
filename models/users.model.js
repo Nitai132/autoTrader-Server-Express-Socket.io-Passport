@@ -5,7 +5,7 @@ const userSchema = new Schema({ //סכמה משתמש
     firstName: String, //שם פרטי
     lastName: String, //שם משפחה
     phone: String, //טלפון
-    email: String, //אימייל
+    email:  { type: String, unique: true }, //אימייל
     password: String, //סיסמא
     isAdmin: Number, //הרשאות
     credits: Number //קרדיטים

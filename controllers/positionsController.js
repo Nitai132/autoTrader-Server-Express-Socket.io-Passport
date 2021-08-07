@@ -9,13 +9,6 @@ const {
     getCurrencyPair,
     getRest,
     getStock,
-    addNewPosition,
-    getNewCrypto,
-    getNewBonds,
-    getNewStocks,
-    getNewRest,
-    getNewComodity,
-    getNewPairs,
     getAllBonds,
     getAllStocks,
     getAllComodity,
@@ -163,90 +156,6 @@ router.get('/getAllStocks', adminValidation, async (req, res) => {
         return res.sendStatus(400);
     };
 });
-
-// שמוסיף פוזיציות מסוג קריפטו לפי הכמות שהמשתמש בחר API
-router.get('/getNewCrypto/:amount', async (req, res) => {
-    try {
-        const { amount } = req.params;
-        const newCrypto = await getNewCrypto(amount);
-        return res.json(newCrypto);
-    } catch (err) {
-        console.log(err);
-        res.sendStatus(400);
-    };
-});
-
-// שמוסיף פוזיציות מסוג בונד לפי הכמות שהמשתמש בחר API
-router.get('/getNewBonds/:amount', async (req, res) => {
-    try {
-        const { amount } = req.params;
-        const newBonds = await getNewBonds(amount);
-        return res.json(newBonds);
-    } catch (err) {
-        console.log(err);
-        res.sendStatus(400);
-    };
-});
-
-// שמוסיף פוזיציות מסוג קומודיטי לפי הכמות שהמשתמש בחר API
-router.get('/getNewComodity/:amount', async (req, res) => {
-    try {
-        const { amount } = req.params;
-        const newComodity = await getNewComodity(amount);
-        return res.json(newComodity);
-    } catch (err) {
-        console.log(err);
-        res.sendStatus(400);
-    };
-});
-
-// שמוסיף פוזיציות מסוג קורנסי פיירס לפי הכמות שהמשתמש בחר API
-router.get('/getNewpairs/:amount', async (req, res) => {
-    try {
-        const { amount } = req.params;
-        const newpairs = await getNewPairs(amount);
-        return res.json(newpairs);
-    } catch (err) {
-        console.log(err);
-        res.sendStatus(400);
-    };
-});
-
-// שמוסיף פוזיציות מסוג רסט לפי הכמות שהמשתמש בחר API
-router.get('/getNewRest/:amount', async (req, res) => {
-    try {
-        const { amount } = req.params;
-        const newRest = await getNewRest(amount);
-        return res.json(newRest);
-    } catch (err) {
-        console.log(err);
-        res.sendStatus(400);
-    };
-});
-
-// שמוסיף פוזיציות מסוג סטוקס לפי הכמות והסכום שהמשתמש בחר API
-router.get('/getNewStocks/:amount/:rate', async (req, res) => {
-    try {
-        const { amount, rate } = req.params;
-        const newStocks = await getNewStocks(amount, rate);
-        return res.json(newStocks);
-    } catch (err) {
-        console.log(err);
-        res.sendStatus(400);
-    };
-});
-
-// שמוסיף פוזיציה חדשה  לדאטאבייס של המשתמש לפי סוג, אימייל של משתמש ואיידי של פוזיציה API
-router.post('/addNewPosition', async (req, res) => {
-    try {
-        const { type, email, id } = req.body;
-        await addNewPosition(type, email, id);
-        return res.sendStatus(200);
-    } catch (err) {
-        console.log(err);
-        res.sendStatus(400);
-    }
-})
 
 //שמוצא את כל הפוזיציות של המשתמש לפי האימייל API
 router.get('/getUserPositions/:email', async (req, res) => {

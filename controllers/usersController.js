@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
-const { Signup, getAllUsers, getUserCredits, changeCredits, checkIfEmailExist, deleteUser } = require('../services/usersService');
+const { Signup, getAllUsers, getUserCredits, changeCredits, checkIfEmailExist, deleteUser, userSetupInit } = require('../services/usersService');
 const { adminValidation } = require('../validations/adminValidation');
 const { isValid } = require('../passport');
 

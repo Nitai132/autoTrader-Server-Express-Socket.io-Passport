@@ -1,17 +1,412 @@
 const mongoose = require('mongoose');
 const userSchema = require('./../models/users.model');
-const usersPositionSchema = require('../models/usersPositions.model');
+const AutoUsersPositionSchema = require('../models/AutoUsersPositions.model');
+const userSetupSchema = require('../models/userSetup.model');
+const userInfoSchema = require('../models/usersInfo.model');
 
 const User = mongoose.model('User', userSchema); //שימוש במודל וסכמה של משתמש
 
-const UsersPosition = mongoose.model('UsersPosition', usersPositionSchema);
+const AutoUsersPositions = mongoose.model('AutoUsersPosition', AutoUsersPositionSchema);
+
+const UsersSetup = mongoose.model('AutoUsersSetup', userSetupSchema);
+
+const UsersInfo = mongoose.model('AutoUsersInfo', userInfoSchema);
 
 const Signup = async ({ firstName, lastName, phone, email, password }) => { //הרשמה למערכת 
     try {
         const u = new User({ firstName, lastName, email, phone, password, isAdmin: 0, credits: 0 }); //יצירת משתמש חדש
-        const p = new UsersPosition({ user: email, bonds: [], comodity: [], crypto: [], pairs: [], rest: [], stocks: [] });
-        await u.save();
-        return await p.save(); //שמירת המשתמש בדאטאבייס
+        const p = new AutoUsersPositions({ user: email, userID: u._id, stocks: [], bonds: [], comodity: [], currencyPairs: [], indexes: []});
+        const ui = new UsersInfo({
+            _id: email,
+            userID: u._id,
+            userType: 'Simulation',
+            gatewayStatus: false,
+            stocks: {
+                investedBalance: {
+                    credits: 0,
+                    dollars: 0
+                },
+                currentBalance: {
+                    credits: 0,
+                    dollars: 0
+                },
+                profitLoss: {
+                    credits: 0,
+                    dollars: 0
+                },
+                tradesAmount: {
+                    buy: 0,
+                    sell: 0
+                }
+            },
+            bonds: {
+                investedBalance: {
+                    credits: 0,
+                    dollars: 0
+                },
+                currentBalance: {
+                    credits: 0,
+                    dollars: 0
+                },
+                profitLoss: {
+                    credits: 0,
+                    dollars: 0
+                },
+                tradesAmount: {
+                    buy: 0,
+                    sell: 0
+                }
+            },
+            comodity: {
+                investedBalance: {
+                    credits: 0,
+                    dollars: 0
+                },
+                currentBalance: {
+                    credits: 0,
+                    dollars: 0
+                },
+                profitLoss: {
+                    credits: 0,
+                    dollars: 0
+                },
+                tradesAmount: {
+                    buy: 0,
+                    sell: 0
+                }
+            },
+            currencyPairs: {
+                investedBalance: {
+                    credits: 0,
+                    dollars: 0
+                },
+                currentBalance: {
+                    credits: 0,
+                    dollars: 0
+                },
+                profitLoss: {
+                    credits: 0,
+                    dollars: 0
+                },
+                tradesAmount: {
+                    buy: 0,
+                    sell: 0
+                }
+            },
+            indexes: {
+                investedBalance: {
+                    credits: 0,
+                    dollars: 0
+                },
+                currentBalance: {
+                    credits: 0,
+                    dollars: 0
+                },
+                profitLoss: {
+                    credits: 0,
+                    dollars: 0
+                },
+                tradesAmount: {
+                    buy: 0,
+                    sell: 0
+                }
+            }
+        });
+        const us = new UsersSetup({
+            userID: u._id,
+            userEmail: email,
+            stocks: {
+                activeAccount: false,
+                sellPositions: false,
+                buyPositions: false,
+                financialTechnology: {
+                    Stocks: false,
+                    StocksAmount: 0,
+                    Options: false,
+                    OptionsAmount: 0,
+                    FutureContract: false,
+                    FutureContractAmount: 0,
+                    FutureContractOptions: false,
+                    FutureContractOptionsAmount: 0,
+                },
+                stopLoss: {
+                    useSystemStopLoss: false,
+                    userStopLoss: 0
+                },
+                riskManagment: {
+                    useDollarsRisk: false,
+                    usePositionsRisk: false,
+                    dollarsRisk: 0,
+                    positionsRisk: 0
+                },
+                times: {
+                    SpecificDays: false,
+                    SpecificHours: false,
+                    TradingDays: [],
+                    TradingHours: ['Sun Aug 01 2021 09:30:00 GMT+0300 (שעון ישראל (קיץ))', 'Sun Aug 01 2021 16:00:00 GMT+0300 (שעון ישראל (קיץ))']
+                },
+                symbols: {
+                    groups: [],
+                    notToUse: []
+                },
+                rates: {
+                    stocks: {
+                        _5: false,
+                        _100: false,
+                        _200: false
+                    },
+                    options: {
+                        _5: false,
+                        _100: false,
+                        _200: false
+                    },
+                    futureContracts: {
+                        _5: false,
+                        _100: false,
+                        _200: false
+                    },
+                    futureContractOptions: {
+                        _5: false,
+                        _100: false,
+                        _200: false
+                    }
+                },
+                tradesPerDay: 0
+            },
+            bonds: {
+                activeAccount: false,
+                sellPositions: false,
+                buyPositions: false,
+                financialTechnology: {
+                    Stocks: false,
+                    StocksAmount: 0,
+                    Options: false,
+                    OptionsAmount: 0,
+                    FutureContract: false,
+                    FutureContractAmount: 0,
+                    FutureContractOptions: false,
+                    FutureContractOptionsAmount: 0,
+                },
+                stopLoss: {
+                    useSystemStopLoss: false,
+                    userStopLoss: 0
+                },
+                riskManagment: {
+                    useDollarsRisk: false,
+                    usePositionsRisk: false,
+                    dollarsRisk: 0,
+                    positionsRisk: 0
+                },
+                times: {
+                    SpecificDays: false,
+                    SpecificHours: false,
+                    TradingDays: [],
+                    TradingHours: ['Sun Aug 01 2021 09:30:00 GMT+0300 (שעון ישראל (קיץ))', 'Sun Aug 01 2021 16:00:00 GMT+0300 (שעון ישראל (קיץ))']
+                },
+                symbols: {
+                    notToUse: []
+                },
+                rates: {
+                    stocks: {
+                        _5: false,
+                        _100: false,
+                        _200: false
+                    },
+                    options: {
+                        _5: false,
+                        _100: false,
+                        _200: false
+                    },
+                    futureContracts: {
+                        _5: false,
+                        _100: false,
+                        _200: false
+                    },
+                    futureContractOptions: {
+                        _5: false,
+                        _100: false,
+                        _200: false
+                    }
+                },
+                tradesPerDay: 0
+            },
+            comodity: {
+                activeAccount: false,
+                sellPositions: false,
+                buyPositions: false,
+                financialTechnology: {
+                    Stocks: false,
+                    StocksAmount: 0,
+                    Options: false,
+                    OptionsAmount: 0,
+                    FutureContract: false,
+                    FutureContractAmount: 0,
+                    FutureContractOptions: false,
+                    FutureContractOptionsAmount: 0,
+                },
+                stopLoss: {
+                    useSystemStopLoss: false,
+                    userStopLoss: 0
+                },
+                riskManagment: {
+                    useDollarsRisk: false,
+                    usePositionsRisk: false,
+                    dollarsRisk: 0,
+                    positionsRisk: 0
+                },
+                times: {
+                    SpecificDays: false,
+                    SpecificHours: false,
+                    TradingDays: [],
+                    TradingHours: ['Sun Aug 01 2021 09:30:00 GMT+0300 (שעון ישראל (קיץ))', 'Sun Aug 01 2021 16:00:00 GMT+0300 (שעון ישראל (קיץ))']
+                },
+                symbols: {
+                    notToUse: []
+                },
+                rates: {
+                    stocks: {
+                        _5: false,
+                        _100: false,
+                        _200: false
+                    },
+                    options: {
+                        _5: false,
+                        _100: false,
+                        _200: false
+                    },
+                    futureContracts: {
+                        _5: false,
+                        _100: false,
+                        _200: false
+                    },
+                    futureContractOptions: {
+                        _5: false,
+                        _100: false,
+                        _200: false
+                    }
+                },
+                tradesPerDay: 0
+            },
+            currencyPairs: {
+                activeAccount: false,
+                sellPositions: false,
+                buyPositions: false,
+                financialTechnology: {
+                    Stocks: false,
+                    StocksAmount: 0,
+                    Options: false,
+                    OptionsAmount: 0,
+                    FutureContract: false,
+                    FutureContractAmount: 0,
+                    FutureContractOptions: false,
+                    FutureContractOptionsAmount: 0,
+                },
+                stopLoss: {
+                    useSystemStopLoss: false,
+                    userStopLoss: 0
+                },
+                riskManagment: {
+                    useDollarsRisk: false,
+                    usePositionsRisk: false,
+                    dollarsRisk: 0,
+                    positionsRisk: 0
+                },
+                times: {
+                    SpecificDays: false,
+                    SpecificHours: false,
+                    TradingDays: [],
+                    TradingHours: ['Sun Aug 01 2021 09:30:00 GMT+0300 (שעון ישראל (קיץ))', 'Sun Aug 01 2021 16:00:00 GMT+0300 (שעון ישראל (קיץ))']
+                },
+                symbols: {
+                    notToUse: []
+                },
+                rates: {
+                    stocks: {
+                        _5: false,
+                        _100: false,
+                        _200: false
+                    },
+                    options: {
+                        _5: false,
+                        _100: false,
+                        _200: false
+                    },
+                    futureContracts: {
+                        _5: false,
+                        _100: false,
+                        _200: false
+                    },
+                    futureContractOptions: {
+                        _5: false,
+                        _100: false,
+                        _200: false
+                    }
+                },
+                tradesPerDay: 0
+            },
+            indexes: {
+                activeAccount: false,
+                sellPositions: false,
+                buyPositions: false,
+                financialTechnology: {
+                    Stocks: false,
+                    StocksAmount: 0,
+                    Options: false,
+                    OptionsAmount: 0,
+                    FutureContract: false,
+                    FutureContractAmount: 0,
+                    FutureContractOptions: false,
+                    FutureContractOptionsAmount: 0,
+                },
+                stopLoss: {
+                    useSystemStopLoss: false,
+                    userStopLoss: 0
+                },
+                riskManagment: {
+                    useDollarsRisk: false,
+                    usePositionsRisk: false,
+                    dollarsRisk: 0,
+                    positionsRisk: 0
+                },
+                times: {
+                    SpecificDays: false,
+                    SpecificHours: false,
+                    TradingDays: [],
+                    TradingHours: ['Sun Aug 01 2021 09:30:00 GMT+0300 (שעון ישראל (קיץ))', 'Sun Aug 01 2021 16:00:00 GMT+0300 (שעון ישראל (קיץ))']
+                },
+                symbols: {
+                    notToUse: []
+                },
+                rates: {
+                    stocks: {
+                        _5: false,
+                        _100: false,
+                        _200: false
+                    },
+                    options: {
+                        _5: false,
+                        _100: false,
+                        _200: false
+                    },
+                    futureContracts: {
+                        _5: false,
+                        _100: false,
+                        _200: false
+                    },
+                    futureContractOptions: {
+                        _5: false,
+                        _100: false,
+                        _200: false
+                    }
+                },
+                tradesPerDay: 0
+            },
+        });
+
+        await us.save(); //שמירת המשתמש בדאטאבייס
+        await ui.save();
+        await p.save();
+        return await u.save(); //שמירת המשתמש בדאטאבייס
     } catch (err) { //במקרה של כשלון
         console.log(err);
         throw err;
@@ -65,5 +460,6 @@ const deleteUser = async (id) => {
         throw err;
     };
 };
+
 
 module.exports = { Signup, getAllUsers, getUserCredits, changeCredits, checkIfEmailExist, deleteUser }; //יצוא הפונקציות

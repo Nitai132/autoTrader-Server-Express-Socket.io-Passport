@@ -1,7 +1,7 @@
 module.exports = {
     //קונפיגורציה למונגו דיבי
     mongoDBStoreConfig: {
-        uri: 'mongodb://adminnew:x8engX86cy8B@80.179.152.210:27018/TradingData?authSource=admin',
+        uri: 'mongodb+srv://jovany:Jj12345@cluster0.4mfvt.mongodb.net/TradingData',
         collection: 'mySessions'
     },
     //  קונפיגורציה לקוקיז

@@ -48,26 +48,5 @@ router.post('/sendRegisterationMail', async (req, res) => {
     };
 });
 
-router.post('/sendPositionMail', async (req, res) => {
-    try {
-        const {email, position} = req.body;
-        await sendPositionMail(email, position);
-        return res.sendStatus(200);
-    } catch(err) {
-        console.log(err);
-        return res.sendStatus(400);
-    };
-});
-
-router.post('/sendClosePositionMail', async (req, res) => {
-    try {
-        const {email, position} = req.body;
-        await sendClosePositionMail(email, position);
-        return res.sendStatus(200);
-    } catch(err) {
-        console.log(err);
-        return res.sendStatus(400);
-    };
-});
 
 module.exports = router;
