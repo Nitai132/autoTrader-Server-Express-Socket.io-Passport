@@ -3,6 +3,9 @@ const userSchema = require('./../models/users.model');
 const AutoUsersPositionSchema = require('../models/AutoUsersPositions.model');
 const userSetupSchema = require('../models/userSetup.model');
 const userInfoSchema = require('../models/usersInfo.model');
+const SymbolsSchema = require('../models/Symbols.model');
+const AutoUsersSymbolsSchema = require('../models/AutoUsersSymbols.model');
+
 
 const User = mongoose.model('User', userSchema); //שימוש במודל וסכמה של משתמש
 
@@ -12,10 +15,17 @@ const UsersSetup = mongoose.model('AutoUsersSetup', userSetupSchema);
 
 const UsersInfo = mongoose.model('AutoUsersInfo', userInfoSchema);
 
+const Symbols = mongoose.model('AutoSymbols', SymbolsSchema);
+
+const UserSymbols = mongoose.model('AutoUsersSymbols', AutoUsersSymbolsSchema);
+
+
 const Signup = async ({ firstName, lastName, phone, email, password }) => { //הרשמה למערכת 
     try {
+        const s = await Symbols.find({});
+        const AUS = new UserSymbols({email: email, symbols: s})
         const u = new User({ firstName, lastName, email, phone, password, isAdmin: 0, credits: 0 }); //יצירת משתמש חדש
-        const p = new AutoUsersPositions({ user: email, userID: u._id, stocks: [], bonds: [], comodity: [], currencyPairs: [], indexes: []});
+        const p = new AutoUsersPositions({ user: email, userID: u._id, stocks: [], bonds: [], comodity: [], currencyPairs: [], indexes: [] });
         const ui = new UsersInfo({
             _id: email,
             userID: u._id,
@@ -115,19 +125,20 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
         const us = new UsersSetup({
             userID: u._id,
             userEmail: email,
+            tradingStatus: false,
+            doubleTheTradeValues: {
+                Stocks: false,
+                Options: false
+            },
             stocks: {
                 activeAccount: false,
                 sellPositions: false,
                 buyPositions: false,
                 financialTechnology: {
                     Stocks: false,
-                    StocksAmount: 0,
                     Options: false,
-                    OptionsAmount: 0,
                     FutureContract: false,
-                    FutureContractAmount: 0,
                     FutureContractOptions: false,
-                    FutureContractOptionsAmount: 0,
                 },
                 stopLoss: {
                     useSystemStopLoss: false,
@@ -152,23 +163,51 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                 rates: {
                     stocks: {
                         _5: false,
+                        _5_amount: 0,
                         _100: false,
-                        _200: false
+                        _100_amount: 0,
+                        _250: false,
+                        _250_amount: 0,
+                        _500: false,
+                        _500_amount: 0,
+                        _1000: false,
+                        _1000_amount: 0
                     },
                     options: {
                         _5: false,
+                        _5_amount: 0,
                         _100: false,
-                        _200: false
+                        _100_amount: 0,
+                        _250: false,
+                        _250_amount: 0,
+                        _500: false,
+                        _500_amount: 0,
+                        _1000: false,
+                        _1000_amount: 0
                     },
                     futureContracts: {
                         _5: false,
+                        _5_amount: 0,
                         _100: false,
-                        _200: false
+                        _100_amount: 0,
+                        _250: false,
+                        _250_amount: 0,
+                        _500: false,
+                        _500_amount: 0,
+                        _1000: false,
+                        _1000_amount: 0
                     },
                     futureContractOptions: {
                         _5: false,
+                        _5_amount: 0,
                         _100: false,
-                        _200: false
+                        _100_amount: 0,
+                        _250: false,
+                        _250_amount: 0,
+                        _500: false,
+                        _500_amount: 0,
+                        _1000: false,
+                        _1000_amount: 0
                     }
                 },
                 tradesPerDay: 0
@@ -179,13 +218,9 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                 buyPositions: false,
                 financialTechnology: {
                     Stocks: false,
-                    StocksAmount: 0,
                     Options: false,
-                    OptionsAmount: 0,
                     FutureContract: false,
-                    FutureContractAmount: 0,
                     FutureContractOptions: false,
-                    FutureContractOptionsAmount: 0,
                 },
                 stopLoss: {
                     useSystemStopLoss: false,
@@ -209,23 +244,51 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                 rates: {
                     stocks: {
                         _5: false,
+                        _5_amount: 0,
                         _100: false,
-                        _200: false
+                        _100_amount: 0,
+                        _250: false,
+                        _250_amount: 0,
+                        _500: false,
+                        _500_amount: 0,
+                        _1000: false,
+                        _1000_amount: 0
                     },
                     options: {
                         _5: false,
+                        _5_amount: 0,
                         _100: false,
-                        _200: false
+                        _100_amount: 0,
+                        _250: false,
+                        _250_amount: 0,
+                        _500: false,
+                        _500_amount: 0,
+                        _1000: false,
+                        _1000_amount: 0
                     },
                     futureContracts: {
                         _5: false,
+                        _5_amount: 0,
                         _100: false,
-                        _200: false
+                        _100_amount: 0,
+                        _250: false,
+                        _250_amount: 0,
+                        _500: false,
+                        _500_amount: 0,
+                        _1000: false,
+                        _1000_amount: 0
                     },
                     futureContractOptions: {
                         _5: false,
+                        _5_amount: 0,
                         _100: false,
-                        _200: false
+                        _100_amount: 0,
+                        _250: false,
+                        _250_amount: 0,
+                        _500: false,
+                        _500_amount: 0,
+                        _1000: false,
+                        _1000_amount: 0
                     }
                 },
                 tradesPerDay: 0
@@ -236,13 +299,9 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                 buyPositions: false,
                 financialTechnology: {
                     Stocks: false,
-                    StocksAmount: 0,
                     Options: false,
-                    OptionsAmount: 0,
                     FutureContract: false,
-                    FutureContractAmount: 0,
                     FutureContractOptions: false,
-                    FutureContractOptionsAmount: 0,
                 },
                 stopLoss: {
                     useSystemStopLoss: false,
@@ -266,23 +325,51 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                 rates: {
                     stocks: {
                         _5: false,
+                        _5_amount: 0,
                         _100: false,
-                        _200: false
+                        _100_amount: 0,
+                        _250: false,
+                        _250_amount: 0,
+                        _500: false,
+                        _500_amount: 0,
+                        _1000: false,
+                        _1000_amount: 0
                     },
                     options: {
                         _5: false,
+                        _5_amount: 0,
                         _100: false,
-                        _200: false
+                        _100_amount: 0,
+                        _250: false,
+                        _250_amount: 0,
+                        _500: false,
+                        _500_amount: 0,
+                        _1000: false,
+                        _1000_amount: 0
                     },
                     futureContracts: {
                         _5: false,
+                        _5_amount: 0,
                         _100: false,
-                        _200: false
+                        _100_amount: 0,
+                        _250: false,
+                        _250_amount: 0,
+                        _500: false,
+                        _500_amount: 0,
+                        _1000: false,
+                        _1000_amount: 0
                     },
                     futureContractOptions: {
                         _5: false,
+                        _5_amount: 0,
                         _100: false,
-                        _200: false
+                        _100_amount: 0,
+                        _250: false,
+                        _250_amount: 0,
+                        _500: false,
+                        _500_amount: 0,
+                        _1000: false,
+                        _1000_amount: 0
                     }
                 },
                 tradesPerDay: 0
@@ -293,13 +380,9 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                 buyPositions: false,
                 financialTechnology: {
                     Stocks: false,
-                    StocksAmount: 0,
                     Options: false,
-                    OptionsAmount: 0,
                     FutureContract: false,
-                    FutureContractAmount: 0,
                     FutureContractOptions: false,
-                    FutureContractOptionsAmount: 0,
                 },
                 stopLoss: {
                     useSystemStopLoss: false,
@@ -323,23 +406,51 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                 rates: {
                     stocks: {
                         _5: false,
+                        _5_amount: 0,
                         _100: false,
-                        _200: false
+                        _100_amount: 0,
+                        _250: false,
+                        _250_amount: 0,
+                        _500: false,
+                        _500_amount: 0,
+                        _1000: false,
+                        _1000_amount: 0
                     },
                     options: {
                         _5: false,
+                        _5_amount: 0,
                         _100: false,
-                        _200: false
+                        _100_amount: 0,
+                        _250: false,
+                        _250_amount: 0,
+                        _500: false,
+                        _500_amount: 0,
+                        _1000: false,
+                        _1000_amount: 0
                     },
                     futureContracts: {
                         _5: false,
+                        _5_amount: 0,
                         _100: false,
-                        _200: false
+                        _100_amount: 0,
+                        _250: false,
+                        _250_amount: 0,
+                        _500: false,
+                        _500_amount: 0,
+                        _1000: false,
+                        _1000_amount: 0
                     },
                     futureContractOptions: {
                         _5: false,
+                        _5_amount: 0,
                         _100: false,
-                        _200: false
+                        _100_amount: 0,
+                        _250: false,
+                        _250_amount: 0,
+                        _500: false,
+                        _500_amount: 0,
+                        _1000: false,
+                        _1000_amount: 0
                     }
                 },
                 tradesPerDay: 0
@@ -350,13 +461,9 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                 buyPositions: false,
                 financialTechnology: {
                     Stocks: false,
-                    StocksAmount: 0,
                     Options: false,
-                    OptionsAmount: 0,
                     FutureContract: false,
-                    FutureContractAmount: 0,
                     FutureContractOptions: false,
-                    FutureContractOptionsAmount: 0,
                 },
                 stopLoss: {
                     useSystemStopLoss: false,
@@ -380,23 +487,51 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                 rates: {
                     stocks: {
                         _5: false,
+                        _5_amount: 0,
                         _100: false,
-                        _200: false
+                        _100_amount: 0,
+                        _250: false,
+                        _250_amount: 0,
+                        _500: false,
+                        _500_amount: 0,
+                        _1000: false,
+                        _1000_amount: 0
                     },
                     options: {
                         _5: false,
+                        _5_amount: 0,
                         _100: false,
-                        _200: false
+                        _100_amount: 0,
+                        _250: false,
+                        _250_amount: 0,
+                        _500: false,
+                        _500_amount: 0,
+                        _1000: false,
+                        _1000_amount: 0
                     },
                     futureContracts: {
                         _5: false,
+                        _5_amount: 0,
                         _100: false,
-                        _200: false
+                        _100_amount: 0,
+                        _250: false,
+                        _250_amount: 0,
+                        _500: false,
+                        _500_amount: 0,
+                        _1000: false,
+                        _1000_amount: 0
                     },
                     futureContractOptions: {
                         _5: false,
+                        _5_amount: 0,
                         _100: false,
-                        _200: false
+                        _100_amount: 0,
+                        _250: false,
+                        _250_amount: 0,
+                        _500: false,
+                        _500_amount: 0,
+                        _1000: false,
+                        _1000_amount: 0
                     }
                 },
                 tradesPerDay: 0
@@ -406,6 +541,7 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
         await us.save(); //שמירת המשתמש בדאטאבייס
         await ui.save();
         await p.save();
+        await AUS.save();
         return await u.save(); //שמירת המשתמש בדאטאבייס
     } catch (err) { //במקרה של כשלון
         console.log(err);

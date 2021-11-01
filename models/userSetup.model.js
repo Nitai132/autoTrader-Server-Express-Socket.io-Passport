@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const userSetupSchema = new Schema({ 
     userID: String,
     userEmail: { type: String, unique: true } ,
-    activeTrading: Boolean, 
+    tradingStatus: Boolean,
+    doubleTheTradeValues: Object,
     stocks: Object, 
     bonds: Object, 
     comodity: Object, 

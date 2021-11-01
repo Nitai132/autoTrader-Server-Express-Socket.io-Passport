@@ -14,6 +14,7 @@ const positionsController = require('./controllers/positionsController');
 const pdfController = require('./controllers/pdfController');
 const usersSetupController = require('./controllers/usersSetupController');
 const usersInfoController = require('./controllers/usersInfoController');
+const usersSymbolsController = require('./controllers/usersSymbolsController');
 const server = require("http").createServer(app);
 const io = require("socket.io")(server, {
     cors: {
@@ -57,6 +58,7 @@ app.use('/emails', EmailsController); //API של הודעות
 app.use('/positions', positionsController);
 app.use('/usersSetup', usersSetupController);
 app.use('/usersInfo', usersInfoController);
+app.use('/usersSymbols', usersSymbolsController);
 app.use('/pdf', pdfController);
 
 app.get("/*", function (req, res) {
