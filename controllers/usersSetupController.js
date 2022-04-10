@@ -27,6 +27,7 @@ router.post('/setSetup', async (req, res) => {
             times,
             symbols,
             rates,
+            takeProfit,
             tradesPerDay,
             doubleTheTradeValues
         } = req.body;
@@ -42,6 +43,7 @@ router.post('/setSetup', async (req, res) => {
             times,
             symbols,
             rates,
+            takeProfit,
             tradesPerDay,
             doubleTheTradeValues
         );

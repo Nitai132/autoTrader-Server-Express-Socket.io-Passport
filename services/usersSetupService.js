@@ -28,6 +28,7 @@ const setUserSetup = async (
     times,
     symbols,
     rates,
+    takeProfit,
     tradesPerDay,
     doubleTheTradeValues
 ) => {
@@ -55,8 +56,10 @@ const setUserSetup = async (
                     riskManagment: {
                         useDollarsRisk: riskManagment.useDollarsRisk,
                         usePositionsRisk: riskManagment.usePositionsRisk,
+                        useRatesRisk: riskManagment.useRatesRisk,
                         dollarsRisk: riskManagment.dollarsRisk,
-                        positionsRisk: riskManagment.positionsRisk
+                        positionsRisk: riskManagment.positionsRisk,
+                        ratesRisk: riskManagment.ratesRisk
                     },
                     times: {
                         SpecificDays: times.SpecificDays,
@@ -113,6 +116,11 @@ const setUserSetup = async (
                             _1000: rates.futureContractOptions._1000,
                             _1000_amount: rates.futureContractOptions._1000_amount,
                         }
+                    },
+                    takeProfit: {
+                        useTakeProfit: takeProfit.useTakeProfit,
+                        systemTakeProfit: takeProfit.systemTakeProfit,
+                        userTakeProfit: takeProfit.userTakeProfit
                     },
                     tradesPerDay: tradesPerDay
                 }

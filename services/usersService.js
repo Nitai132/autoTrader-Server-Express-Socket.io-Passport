@@ -23,7 +23,7 @@ const UserSymbols = mongoose.model('AutoUsersSymbols', AutoUsersSymbolsSchema);
 const Signup = async ({ firstName, lastName, phone, email, password }) => { //הרשמה למערכת 
     try {
         const s = await Symbols.find({});
-        const AUS = new UserSymbols({email: email, symbols: s})
+        const AUS = new UserSymbols({ email: email, symbols: s })
         const u = new User({ firstName, lastName, email, phone, password, isAdmin: 0, credits: 0 }); //יצירת משתמש חדש
         const p = new AutoUsersPositions({ user: email, userID: u._id, stocks: [], bonds: [], comodity: [], currencyPairs: [], indexes: [] });
         const ui = new UsersInfo({
@@ -147,8 +147,10 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                 riskManagment: {
                     useDollarsRisk: false,
                     usePositionsRisk: false,
+                    useRatesRisk: false,
                     dollarsRisk: 0,
-                    positionsRisk: 0
+                    positionsRisk: 0,
+                    ratesRisk: 0
                 },
                 times: {
                     SpecificDays: false,
@@ -210,6 +212,11 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                         _1000_amount: 0
                     }
                 },
+                takeProfit: {
+                    useTakeProfit: false,
+                    systemTakeProfit: false,
+                    userTakeProfit: 0
+                },
                 tradesPerDay: 0
             },
             bonds: {
@@ -229,8 +236,10 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                 riskManagment: {
                     useDollarsRisk: false,
                     usePositionsRisk: false,
+                    useRatesRisk: false,
                     dollarsRisk: 0,
-                    positionsRisk: 0
+                    positionsRisk: 0,
+                    ratesRisk: 0
                 },
                 times: {
                     SpecificDays: false,
@@ -290,6 +299,11 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                         _1000: false,
                         _1000_amount: 0
                     }
+                },
+                takeProfit: {
+                    useTakeProfit: false,
+                    systemTakeProfit: false,
+                    userTakeProfit: 0
                 },
                 tradesPerDay: 0
             },
@@ -310,8 +324,10 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                 riskManagment: {
                     useDollarsRisk: false,
                     usePositionsRisk: false,
+                    useRatesRisk: false,
                     dollarsRisk: 0,
-                    positionsRisk: 0
+                    positionsRisk: 0,
+                    ratesRisk: 0
                 },
                 times: {
                     SpecificDays: false,
@@ -371,6 +387,11 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                         _1000: false,
                         _1000_amount: 0
                     }
+                },
+                takeProfit: {
+                    useTakeProfit: false,
+                    systemTakeProfit: false,
+                    userTakeProfit: 0
                 },
                 tradesPerDay: 0
             },
@@ -391,8 +412,10 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                 riskManagment: {
                     useDollarsRisk: false,
                     usePositionsRisk: false,
+                    useRatesRisk: false,
                     dollarsRisk: 0,
-                    positionsRisk: 0
+                    positionsRisk: 0,
+                    ratesRisk: 0
                 },
                 times: {
                     SpecificDays: false,
@@ -452,6 +475,11 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                         _1000: false,
                         _1000_amount: 0
                     }
+                },
+                takeProfit: {
+                    useTakeProfit: false,
+                    systemTakeProfit: false,
+                    userTakeProfit: 0
                 },
                 tradesPerDay: 0
             },
@@ -472,8 +500,10 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                 riskManagment: {
                     useDollarsRisk: false,
                     usePositionsRisk: false,
+                    useRatesRisk: false,
                     dollarsRisk: 0,
-                    positionsRisk: 0
+                    positionsRisk: 0,
+                    ratesRisk: 0
                 },
                 times: {
                     SpecificDays: false,
@@ -533,6 +563,11 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                         _1000: false,
                         _1000_amount: 0
                     }
+                },
+                takeProfit: {
+                    useTakeProfit: false,
+                    systemTakeProfit: false,
+                    userTakeProfit: 0
                 },
                 tradesPerDay: 0
             },

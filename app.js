@@ -25,7 +25,7 @@ const io = require("socket.io")(server, {
 const path = require('path');
 const PORT = process.env.PORT || 4423;
 const { mongoDBStoreConfig, cookiesConfig, mongooseConnection, passportConfig } = require('./config')
-const dbString = 'mongodb+srv://jovany:Jj12345@cluster0.4mfvt.mongodb.net/TradingData';
+const dbString = 'mongodb://adminnew:x8engX86cy8B@80.179.152.210:27018/TradingData?authSource=admin';
 const cors = require('cors')
 
 app.use(express.json()); //שימוש בג'ייסון

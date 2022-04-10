@@ -8,75 +8,90 @@ module.exports = {
             autoFirstPage: false
         }),
             table = new PdfTable(pdf, {
-                bottomMargin: 30
+                bottomMargin: 30,
             });
 
         table
             // הוספת פלאגין לסידור הרוחב
             .addPlugin(new (require('voilab-pdf-table/plugins/fitcolumn'))({
-
+                align: 'left'
             }))
             // ערכים דיפולטיביים לעמודות
             .setColumnsDefaults({
                 headerBorder: 'B',
-                align: 'left',
-                padding: [10, 0, 0, 0],
+                align: 'center',
+                padding: [0, 5, 5, 5],
+                headerPadding: [0, 5, 5, 5],
             })
             // עמודות של הטבלה
             .addColumns([
                 {
                     id: 'Num',
-                    header: 'number',
+                    header: 'Nm',
                     align: 'left',
-                    width: 50,
+                    width: 30,
+                    align: 'center'
+
                 },
                 {
                     id: 'Operation',
-                    header: 'Operation',
-                    width: 50,
-                    align: 'left',
+                    header: 'Op',
+                    width: 30,
+                    align: 'center'
                 },
                 {
                     id: 'StartDate',
                     header: 'StartDate',
-                    width: 40,
-                    align: 'left',
+                    width: 75,
+                    align: 'center'
                 },
                 {
                     id: 'EndDate',
                     header: 'EndDate',
-                    width: 70,
-                    align: 'left'
+                    width: 75,
+                    align: 'center'
                 },
                 {
                     id: 'StartPrice',
                     header: 'StartPrice',
-                    width: 70,
-                    align: 'left',
+                    width: 60,
+                    align: 'center'
                 },
                 {
                     id: 'EndPrice',
                     header: 'EndPrice',
-                    width: 70,
-                    align: 'left',
+                    width: 60,
+                    align: 'center'
+                },
+                {
+                    id: 'tp',
+                    header: 'TP',
+                    width: 40,
+                    align: 'center'
+                },
+                {
+                    id: 'sp',
+                    header: 'SP',
+                    width: 40,
+                    align: 'center'
                 },
                 {
                     id: 'succeeded',
-                    header: 'succeeded',
-                    width: 70,
-                    align: 'left',
+                    header: 'succees',
+                    width: 60,
+                    align: 'center'
                 },
                 {
                     id: 'PipsesCents',
-                    header: 'PipsesCents',
-                    width: 70,
-                    align: 'left',
+                    header: 'Pipses',
+                    width: 60,
+                    align: 'center'
                 },
                 {
                     id: 'Precent',
-                    header: 'Success rate (per page)',
+                    header: 'Success rate',
                     width: 70,
-                    align: 'left',
+                    align: 'center'
                 },
 
             ])
