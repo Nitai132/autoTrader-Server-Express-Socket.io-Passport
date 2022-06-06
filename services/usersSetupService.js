@@ -120,7 +120,8 @@ const setUserSetup = async (
                     takeProfit: {
                         useTakeProfit: takeProfit.useTakeProfit,
                         systemTakeProfit: takeProfit.systemTakeProfit,
-                        userTakeProfit: takeProfit.userTakeProfit
+                        userTakeProfit: takeProfit.userTakeProfit,
+                        takeProfitPercentage: takeProfit.takeProfitPercentage
                     },
                     tradesPerDay: tradesPerDay
                 }

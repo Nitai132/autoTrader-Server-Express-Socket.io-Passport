@@ -215,7 +215,8 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                 takeProfit: {
                     useTakeProfit: false,
                     systemTakeProfit: false,
-                    userTakeProfit: 0
+                    userTakeProfit: 0,
+                    takeProfitPercentage: 100
                 },
                 tradesPerDay: 0
             },
@@ -303,7 +304,8 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                 takeProfit: {
                     useTakeProfit: false,
                     systemTakeProfit: false,
-                    userTakeProfit: 0
+                    userTakeProfit: 0,
+                    takeProfitPercentage: 100
                 },
                 tradesPerDay: 0
             },
@@ -391,7 +393,8 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                 takeProfit: {
                     useTakeProfit: false,
                     systemTakeProfit: false,
-                    userTakeProfit: 0
+                    userTakeProfit: 0,
+                    takeProfitPercentage: 100
                 },
                 tradesPerDay: 0
             },
@@ -479,7 +482,8 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                 takeProfit: {
                     useTakeProfit: false,
                     systemTakeProfit: false,
-                    userTakeProfit: 0
+                    userTakeProfit: 0,
+                    takeProfitPercentage: 100
                 },
                 tradesPerDay: 0
             },
@@ -567,7 +571,8 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                 takeProfit: {
                     useTakeProfit: false,
                     systemTakeProfit: false,
-                    userTakeProfit: 0
+                    userTakeProfit: 0,
+                    takeProfitPercentage: 100
                 },
                 tradesPerDay: 0
             },
