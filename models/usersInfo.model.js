@@ -9,7 +9,11 @@ const userSetupSchema = new Schema({
     bonds: Object, 
     comodity: Object, 
     currencyPairs: Object, 
+    crypto: Object,
     indexes: Object,
+    investedBalance: Number,
+    currentBalance: Number,
+    tradesAmount: Object
 }, {collection: 'AutoUsersInfo'});
 
 module.exports = userSetupSchema;

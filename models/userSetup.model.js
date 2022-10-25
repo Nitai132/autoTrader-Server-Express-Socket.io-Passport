@@ -10,6 +10,7 @@ const userSetupSchema = new Schema({
     bonds: Object, 
     comodity: Object, 
     currencyPairs: Object, 
+    crypto: Object,
     indexes: Object,
 }, {collection: 'AutoUsersSetup'});
 

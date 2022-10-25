@@ -25,7 +25,7 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
         const s = await Symbols.find({});
         const AUS = new UserSymbols({ email: email, symbols: s })
         const u = new User({ firstName, lastName, email, phone, password, isAdmin: 0, credits: 0 }); //יצירת משתמש חדש
-        const p = new AutoUsersPositions({ user: email, userID: u._id, stocks: [], bonds: [], comodity: [], currencyPairs: [], indexes: [] });
+        const p = new AutoUsersPositions({ user: email, userID: u._id, stocks: [], bonds: [], comodity: [], currencyPairs: [], crypto: [], indexes: [] });
         const ui = new UsersInfo({
             _id: email,
             userID: u._id,
@@ -103,6 +103,24 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                     sell: 0
                 }
             },
+            crypto: {
+                investedBalance: {
+                    credits: 0,
+                    dollars: 0
+                },
+                currentBalance: {
+                    credits: 0,
+                    dollars: 0
+                },
+                profitLoss: {
+                    credits: 0,
+                    dollars: 0
+                },
+                tradesAmount: {
+                    buy: 0,
+                    sell: 0
+                }
+            },
             indexes: {
                 investedBalance: {
                     credits: 0,
@@ -120,16 +138,15 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                     buy: 0,
                     sell: 0
                 }
-            }
+            },
+            investedBalance: 0,
+            currentBalance: 0,
+            tradesAmount: {buy: 0, sell: 0}
         });
         const us = new UsersSetup({
             userID: u._id,
             userEmail: email,
             tradingStatus: false,
-            doubleTheTradeValues: {
-                Stocks: false,
-                Options: false
-            },
             stocks: {
                 activeAccount: false,
                 sellPositions: false,
@@ -139,10 +156,6 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                     Options: false,
                     FutureContract: false,
                     FutureContractOptions: false,
-                },
-                stopLoss: {
-                    useSystemStopLoss: false,
-                    userStopLoss: 0
                 },
                 riskManagment: {
                     useDollarsRisk: false,
@@ -214,8 +227,6 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                 },
                 takeProfit: {
                     useTakeProfit: false,
-                    systemTakeProfit: false,
-                    userTakeProfit: 0,
                     takeProfitPercentage: 100
                 },
                 tradesPerDay: 0
@@ -230,10 +241,6 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                     FutureContract: false,
                     FutureContractOptions: false,
                 },
-                stopLoss: {
-                    useSystemStopLoss: false,
-                    userStopLoss: 0
-                },
                 riskManagment: {
                     useDollarsRisk: false,
                     usePositionsRisk: false,
@@ -277,34 +284,14 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                         _1000_amount: 0
                     },
                     futureContracts: {
-                        _5: false,
-                        _5_amount: 0,
-                        _100: false,
-                        _100_amount: 0,
-                        _250: false,
-                        _250_amount: 0,
-                        _500: false,
-                        _500_amount: 0,
-                        _1000: false,
-                        _1000_amount: 0
+                        amount: 0
                     },
                     futureContractOptions: {
-                        _5: false,
-                        _5_amount: 0,
-                        _100: false,
-                        _100_amount: 0,
-                        _250: false,
-                        _250_amount: 0,
-                        _500: false,
-                        _500_amount: 0,
-                        _1000: false,
-                        _1000_amount: 0
+                        amount: 0
                     }
                 },
                 takeProfit: {
                     useTakeProfit: false,
-                    systemTakeProfit: false,
-                    userTakeProfit: 0,
                     takeProfitPercentage: 100
                 },
                 tradesPerDay: 0
@@ -319,10 +306,6 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                     FutureContract: false,
                     FutureContractOptions: false,
                 },
-                stopLoss: {
-                    useSystemStopLoss: false,
-                    userStopLoss: 0
-                },
                 riskManagment: {
                     useDollarsRisk: false,
                     usePositionsRisk: false,
@@ -366,34 +349,14 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                         _1000_amount: 0
                     },
                     futureContracts: {
-                        _5: false,
-                        _5_amount: 0,
-                        _100: false,
-                        _100_amount: 0,
-                        _250: false,
-                        _250_amount: 0,
-                        _500: false,
-                        _500_amount: 0,
-                        _1000: false,
-                        _1000_amount: 0
+                        amount: 0
                     },
                     futureContractOptions: {
-                        _5: false,
-                        _5_amount: 0,
-                        _100: false,
-                        _100_amount: 0,
-                        _250: false,
-                        _250_amount: 0,
-                        _500: false,
-                        _500_amount: 0,
-                        _1000: false,
-                        _1000_amount: 0
+                        amount: 0
                     }
                 },
                 takeProfit: {
                     useTakeProfit: false,
-                    systemTakeProfit: false,
-                    userTakeProfit: 0,
                     takeProfitPercentage: 100
                 },
                 tradesPerDay: 0
@@ -408,9 +371,70 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                     FutureContract: false,
                     FutureContractOptions: false,
                 },
-                stopLoss: {
-                    useSystemStopLoss: false,
-                    userStopLoss: 0
+                riskManagment: {
+                    useDollarsRisk: false,
+                    usePositionsRisk: false,
+                    useRatesRisk: false,
+                    dollarsRisk: 0,
+                    positionsRisk: 0,
+                    ratesRisk: 0
+                },
+                times: {
+                    SpecificDays: false,
+                    SpecificHours: false,
+                    TradingDays: [],
+                    TradingHours: ['Sun Aug 01 2021 09:30:00 GMT+0300 (שעון ישראל (קיץ))', 'Sun Aug 01 2021 16:00:00 GMT+0300 (שעון ישראל (קיץ))']
+                },
+                symbols: {
+                    notToUse: []
+                },
+                rates: {
+                    stocks: {
+                        _5: false,
+                        _5_amount: 0,
+                        _100: false,
+                        _100_amount: 0,
+                        _250: false,
+                        _250_amount: 0,
+                        _500: false,
+                        _500_amount: 0,
+                        _1000: false,
+                        _1000_amount: 0
+                    },
+                    options: {
+                        _5: false,
+                        _5_amount: 0,
+                        _100: false,
+                        _100_amount: 0,
+                        _250: false,
+                        _250_amount: 0,
+                        _500: false,
+                        _500_amount: 0,
+                        _1000: false,
+                        _1000_amount: 0
+                    },
+                    futureContracts: {
+                        amount: 0
+                    },
+                    futureContractOptions: {
+                        amount: 0
+                    }
+                },
+                takeProfit: {
+                    useTakeProfit: false,
+                    takeProfitPercentage: 100
+                },
+                tradesPerDay: 0
+            },
+            crypto: {
+                activeAccount: false,
+                sellPositions: false,
+                buyPositions: false,
+                financialTechnology: {
+                    Stocks: false,
+                    Options: false,
+                    FutureContract: false,
+                    FutureContractOptions: false,
                 },
                 riskManagment: {
                     useDollarsRisk: false,
@@ -455,34 +479,14 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                         _1000_amount: 0
                     },
                     futureContracts: {
-                        _5: false,
-                        _5_amount: 0,
-                        _100: false,
-                        _100_amount: 0,
-                        _250: false,
-                        _250_amount: 0,
-                        _500: false,
-                        _500_amount: 0,
-                        _1000: false,
-                        _1000_amount: 0
+                        amount: 0
                     },
                     futureContractOptions: {
-                        _5: false,
-                        _5_amount: 0,
-                        _100: false,
-                        _100_amount: 0,
-                        _250: false,
-                        _250_amount: 0,
-                        _500: false,
-                        _500_amount: 0,
-                        _1000: false,
-                        _1000_amount: 0
+                        amount: 0
                     }
                 },
                 takeProfit: {
                     useTakeProfit: false,
-                    systemTakeProfit: false,
-                    userTakeProfit: 0,
                     takeProfitPercentage: 100
                 },
                 tradesPerDay: 0
@@ -497,10 +501,6 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                     FutureContract: false,
                     FutureContractOptions: false,
                 },
-                stopLoss: {
-                    useSystemStopLoss: false,
-                    userStopLoss: 0
-                },
                 riskManagment: {
                     useDollarsRisk: false,
                     usePositionsRisk: false,
@@ -544,34 +544,14 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                         _1000_amount: 0
                     },
                     futureContracts: {
-                        _5: false,
-                        _5_amount: 0,
-                        _100: false,
-                        _100_amount: 0,
-                        _250: false,
-                        _250_amount: 0,
-                        _500: false,
-                        _500_amount: 0,
-                        _1000: false,
-                        _1000_amount: 0
+                        amount: 0
                     },
                     futureContractOptions: {
-                        _5: false,
-                        _5_amount: 0,
-                        _100: false,
-                        _100_amount: 0,
-                        _250: false,
-                        _250_amount: 0,
-                        _500: false,
-                        _500_amount: 0,
-                        _1000: false,
-                        _1000_amount: 0
+                        amount: 0
                     }
                 },
                 takeProfit: {
                     useTakeProfit: false,
-                    systemTakeProfit: false,
-                    userTakeProfit: 0,
                     takeProfitPercentage: 100
                 },
                 tradesPerDay: 0

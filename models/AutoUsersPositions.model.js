@@ -8,6 +8,7 @@ const AutoUsersPositionSchema = new Schema({ //סכמה משתמש
     bonds: Array, 
     comodity: Array, 
     currencyPairs: Array, 
+    crypto: Array,
     indexes: Array, 
 }, { collection: 'AutoUsersPositions'} );
 

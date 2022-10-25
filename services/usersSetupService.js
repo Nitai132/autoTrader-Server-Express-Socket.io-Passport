@@ -23,22 +23,16 @@ const setUserSetup = async (
     sellPositions,
     buyPositions,
     financialTechnology,
-    stopLoss,
     riskManagment,
     times,
     symbols,
     rates,
     takeProfit,
     tradesPerDay,
-    doubleTheTradeValues
 ) => {
     try {
         const userSetup = await UsersSetup.updateOne({ userEmail: userEmail }, {
             $set: {
-                doubleTheTradeValues: {
-                    Stocks: doubleTheTradeValues.Stocks,
-                    Options: doubleTheTradeValues.Options
-                },
                 [currentAccount]: {
                     activeAccount: JSON.parse(activeAccount),
                     sellPositions: JSON.parse(sellPositions),
@@ -48,10 +42,6 @@ const setUserSetup = async (
                         Options: financialTechnology.Options,
                         FutureContract: financialTechnology.FutureContract,
                         FutureContractOptions: financialTechnology.FutureContractOptions,
-                    },
-                    stopLoss: {
-                        useSystemStopLoss: stopLoss.useSystemStopLoss,
-                        userStopLoss: stopLoss.userStopLoss
                     },
                     riskManagment: {
                         useDollarsRisk: riskManagment.useDollarsRisk,
@@ -91,18 +81,10 @@ const setUserSetup = async (
                             _500_amount: rates.options._500_amount,
                             _1000: rates.options._1000,
                             _1000_amount: rates.options._1000_amount,
+                            optionsPerTrade: rates.options.optionsPerTrade
                         },
                         futureContracts: {
-                            _5: rates.futureContracts._5,
-                            _5_amount: rates.futureContracts._5_amount,
-                            _100: rates.futureContracts._100,
-                            _100_amount: rates.futureContracts._100_amount,
-                            _250: rates.futureContracts._250,
-                            _250_amount: rates.futureContracts._250_amount,
-                            _500: rates.futureContracts._500,
-                            _500_amount: rates.futureContracts._500_amount,
-                            _1000: rates.futureContracts._1000,
-                            _1000_amount: rates.futureContracts._1000_amount,
+                            amount: rates.futureContracts.amount
                         },
                         futureContractOptions: {
                             _5: rates.futureContractOptions._5,
@@ -115,12 +97,11 @@ const setUserSetup = async (
                             _500_amount: rates.futureContractOptions._500_amount,
                             _1000: rates.futureContractOptions._1000,
                             _1000_amount: rates.futureContractOptions._1000_amount,
+                            amount: rates.futureContractOptions.amount
                         }
                     },
                     takeProfit: {
                         useTakeProfit: takeProfit.useTakeProfit,
-                        systemTakeProfit: takeProfit.systemTakeProfit,
-                        userTakeProfit: takeProfit.userTakeProfit,
                         takeProfitPercentage: takeProfit.takeProfitPercentage
                     },
                     tradesPerDay: tradesPerDay

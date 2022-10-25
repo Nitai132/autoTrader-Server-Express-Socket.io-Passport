@@ -22,14 +22,12 @@ router.post('/setSetup', async (req, res) => {
             sellPositions,
             buyPositions,
             financialTechnology,
-            stopLoss,
             riskManagment,
             times,
             symbols,
             rates,
             takeProfit,
             tradesPerDay,
-            doubleTheTradeValues
         } = req.body;
         await setUserSetup(
             userEmail,
@@ -38,14 +36,12 @@ router.post('/setSetup', async (req, res) => {
             sellPositions,
             buyPositions,
             financialTechnology,
-            stopLoss,
             riskManagment,
             times,
             symbols,
             rates,
             takeProfit,
             tradesPerDay,
-            doubleTheTradeValues
         );
         return res.sendStatus(200);
     } catch (err) {
