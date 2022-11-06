@@ -7,6 +7,7 @@ const { createReport } = require('../services/reportsService');
 router.post('/createReport', async (req, res) => {
     try {
         const {positions, userEmail, amount } = req.body;
+        
         const report = await createReport(positions, userEmail, amount);
         return res.json(report);
     } catch (err) {

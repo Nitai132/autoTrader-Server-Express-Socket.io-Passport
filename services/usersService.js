@@ -163,7 +163,8 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                     useRatesRisk: false,
                     dollarsRisk: 0,
                     positionsRisk: 0,
-                    ratesRisk: 0
+                    ratesRisk: 0,
+                    margin: 0
                 },
                 times: {
                     SpecificDays: false,
@@ -229,7 +230,7 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                     useTakeProfit: false,
                     takeProfitPercentage: 100
                 },
-                tradesPerDay: 0
+                tradesPerDay: 0,
             },
             bonds: {
                 activeAccount: false,
@@ -247,7 +248,8 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                     useRatesRisk: false,
                     dollarsRisk: 0,
                     positionsRisk: 0,
-                    ratesRisk: 0
+                    ratesRisk: 0,
+                    margin: 0
                 },
                 times: {
                     SpecificDays: false,
@@ -294,7 +296,7 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                     useTakeProfit: false,
                     takeProfitPercentage: 100
                 },
-                tradesPerDay: 0
+                tradesPerDay: 0,
             },
             comodity: {
                 activeAccount: false,
@@ -312,7 +314,8 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                     useRatesRisk: false,
                     dollarsRisk: 0,
                     positionsRisk: 0,
-                    ratesRisk: 0
+                    ratesRisk: 0,
+                    margin: 0
                 },
                 times: {
                     SpecificDays: false,
@@ -359,7 +362,7 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                     useTakeProfit: false,
                     takeProfitPercentage: 100
                 },
-                tradesPerDay: 0
+                tradesPerDay: 0,
             },
             currencyPairs: {
                 activeAccount: false,
@@ -377,7 +380,8 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                     useRatesRisk: false,
                     dollarsRisk: 0,
                     positionsRisk: 0,
-                    ratesRisk: 0
+                    ratesRisk: 0,
+                    margin: 0
                 },
                 times: {
                     SpecificDays: false,
@@ -424,7 +428,7 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                     useTakeProfit: false,
                     takeProfitPercentage: 100
                 },
-                tradesPerDay: 0
+                tradesPerDay: 0,
             },
             crypto: {
                 activeAccount: false,
@@ -442,7 +446,8 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                     useRatesRisk: false,
                     dollarsRisk: 0,
                     positionsRisk: 0,
-                    ratesRisk: 0
+                    ratesRisk: 0,
+                    margin: 0
                 },
                 times: {
                     SpecificDays: false,
@@ -489,7 +494,7 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                     useTakeProfit: false,
                     takeProfitPercentage: 100
                 },
-                tradesPerDay: 0
+                tradesPerDay: 0,
             },
             indexes: {
                 activeAccount: false,
@@ -507,7 +512,8 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                     useRatesRisk: false,
                     dollarsRisk: 0,
                     positionsRisk: 0,
-                    ratesRisk: 0
+                    ratesRisk: 0,
+                    margin: 0
                 },
                 times: {
                     SpecificDays: false,
@@ -554,8 +560,7 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                     useTakeProfit: false,
                     takeProfitPercentage: 100
                 },
-                tradesPerDay: 0
-            },
+                tradesPerDay: 0            },
         });
 
         await us.save(); //שמירת המשתמש בדאטאבייס
