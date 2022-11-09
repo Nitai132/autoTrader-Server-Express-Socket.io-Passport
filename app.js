@@ -16,6 +16,7 @@ const usersSetupController = require('./controllers/usersSetupController');
 const usersInfoController = require('./controllers/usersInfoController');
 const usersSymbolsController = require('./controllers/usersSymbolsController');
 const reportsController = require('./controllers/reportsController');
+const exchangeController = require('./controllers/exchangesController');
 const server = require("http").createServer(app);
 const io = require("socket.io")(server, {
     cors: {
@@ -62,7 +63,7 @@ app.use('/usersInfo', usersInfoController);
 app.use('/usersSymbols', usersSymbolsController);
 app.use('/pdf', pdfController);
 app.use('/reports', reportsController);
-
+app.use('/exchanges', exchangeController);
 
 app.get("/*", function (req, res) {
     res.sendFile(path.join(__dirname, "./public", "index.html"));
