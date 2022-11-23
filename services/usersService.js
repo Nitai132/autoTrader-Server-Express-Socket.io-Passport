@@ -164,7 +164,8 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                     dollarsRisk: 0,
                     positionsRisk: 0,
                     ratesRisk: 0,
-                    margin: 0
+                    margin: 0,
+                    sameTimeTrades: 1
                 },
                 times: {
                     SpecificDays: false,
@@ -249,7 +250,8 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                     dollarsRisk: 0,
                     positionsRisk: 0,
                     ratesRisk: 0,
-                    margin: 0
+                    margin: 0,
+                    sameTimeTrades: 1
                 },
                 times: {
                     SpecificDays: false,
@@ -315,7 +317,8 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                     dollarsRisk: 0,
                     positionsRisk: 0,
                     ratesRisk: 0,
-                    margin: 0
+                    margin: 0,
+                    sameTimeTrades: 1
                 },
                 times: {
                     SpecificDays: false,
@@ -381,7 +384,8 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                     dollarsRisk: 0,
                     positionsRisk: 0,
                     ratesRisk: 0,
-                    margin: 0
+                    margin: 0,
+                    sameTimeTrades: 1
                 },
                 times: {
                     SpecificDays: false,
@@ -447,7 +451,8 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                     dollarsRisk: 0,
                     positionsRisk: 0,
                     ratesRisk: 0,
-                    margin: 0
+                    margin: 0,
+                    sameTimeTrades: 1
                 },
                 times: {
                     SpecificDays: false,
@@ -513,7 +518,8 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                     dollarsRisk: 0,
                     positionsRisk: 0,
                     ratesRisk: 0,
-                    margin: 0
+                    margin: 0,
+                    sameTimeTrades: 1
                 },
                 times: {
                     SpecificDays: false,

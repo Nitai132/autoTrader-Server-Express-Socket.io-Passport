@@ -50,7 +50,8 @@ const setUserSetup = async (
                         dollarsRisk: riskManagment.dollarsRisk,
                         positionsRisk: riskManagment.positionsRisk,
                         ratesRisk: riskManagment.ratesRisk,
-                        margin: riskManagment.margin
+                        margin: riskManagment.margin,
+                        sameTimeTrades: riskManagment.sameTimeTrades
                     },
                     times: {
                         SpecificDays: times.SpecificDays,

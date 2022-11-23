@@ -46,7 +46,9 @@ const createReport = async (positions, userEmail, amount) => {
 
             "BUY/SELL": array[i].operation.toUpperCase(),
 
-            "QUANTITY OF SHARES": "100",
+            "QUANTITY OF SHARES": array[i].quantity,
+            
+            "MARGIN": array[i].margin,
 
             "LOT SIZE": `=IF(J${i + 2}=${buy},H${i + 2}*K${i + 2},K${i + 2}*I${i + 2})`,
 
@@ -85,6 +87,10 @@ const createReport = async (positions, userEmail, amount) => {
           "QUANTITY TAKE PROFIT 4": tpAmount4,
 
           "QUANTITY TAKE PROFIT 5": tpAmount5,
+
+          "POSITION ID": array[i].IB_ID,
+
+          "POSITION TYPE" : array[i].technology,
 
             "R1 BUY/SELL": `=IF(J${i + 2}="SELL",T${i + 2}-I${i + 2},I${i + 2}-T${i + 2})`,
 
@@ -136,7 +142,9 @@ const createReport = async (positions, userEmail, amount) => {
 
           "BUY/SELL": array[0].operation.toUpperCase(),
 
-          "QUANTITY OF SHARES": "100",
+          "QUANTITY OF SHARES": array[0].quantity,
+
+          "MARGIN": array[0].margin,
 
           "LOT SIZE": `=IF(J2=${buy},H2*K2,K2*I2)`,
 
@@ -175,6 +183,10 @@ const createReport = async (positions, userEmail, amount) => {
           "QUANTITY TAKE PROFIT 4": array[0].takeProfit[3]?.quantity,
 
           "QUANTITY TAKE PROFIT 5": array[0].takeProfit[4]?.quantity,
+
+          "POSITION ID": array[0].IB_ID,
+
+          "POSITION TYPE" : array[0].technology,
 
           "R1 BUY/SELL": `=IF(J2="SELL",T2-I2,I2-T2)`,
 
