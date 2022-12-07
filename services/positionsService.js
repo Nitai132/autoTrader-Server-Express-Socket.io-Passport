@@ -3,8 +3,9 @@ const liveRateBondSchema = require('./../models/liveRateBonds.model');
 const AutoUsersPositionsSchema = require('../models/AutoUsersPositions.model');
 const liveRateCryptoSchema = require('../models/liveRateCrypto.model');
 const userSchema = require('./../models/users.model');
-
-const AutoUserPositions = mongoose.model('userPositions', AutoUsersPositionsSchema, 'AutoUsersPositions')
+const UsersPositionsIBSchema = require('./../models/usersPositionsIB.model');
+const AutoUserPositions = mongoose.model('userPositions', AutoUsersPositionsSchema, 'AutoUsersPositions');
+const UsersPositionsIB = mongoose.model('usersPositionsIB', UsersPositionsIBSchema, 'usersPositionsIB')
 const LiveRateBond = mongoose.model('LiveRateBond', liveRateBondSchema, 'liveRateBonds');
 const LiveRateCrypto = mongoose.model('LiveRateCrypto', liveRateCryptoSchema, 'liveRateCrypto');
 const LiveRateComodity = mongoose.model('LiveRateComodity', liveRateCryptoSchema, 'liveRateComodity');
@@ -163,6 +164,17 @@ const getPositions = async (email) => {
     };
 };
 
+const getActivePositions = async (email) => {
+    try {
+        const positions = await UsersPositionsIB.find({ user: email, active: true });
+        return positions;
+    } catch (err) {
+        console.log(err);
+        throw err;
+    };
+};
+
+
 
 //סרביס שמקבל פוזיציות שיצאו פולס ומוצא את כל המשתמשים עם אותה פוזיציה 
 const checkUsersWithFalsePosition = async (id) => {
@@ -214,5 +226,6 @@ module.exports = {
     getAllCrypto,
     getAllPairs,
     checkUsersWithFalsePosition,
-    refundUsers
+    refundUsers,
+    getActivePositions
 }

@@ -16,7 +16,8 @@ const {
     getAllCrypto,
     getAllPairs,
     checkUsersWithFalsePosition,
-    refundUsers
+    refundUsers,
+    getActivePositions
 } = require('../services/positionsService');
 
 //שמוצא פוזיציה מסוג בונד לפי איידי API
@@ -168,6 +169,18 @@ router.get('/getUserPositions/:email', async (req, res) => {
         return res.sendStatus(400);
     };
 });
+
+router.get('/getUserActivePositions/:email', async (req, res) => {
+    try {
+        const { email } = req.params;
+        const positions = await getActivePositions(email);
+        return res.json(positions);
+    } catch (err) {
+        console.log(err);
+        return res.sendStatus(400);
+    };
+});
+
 
 //שמחזיר קרדיטים למשתמש ברגע שקיבל פוזיציה שהיא פולס API 
 router.post('/falsePosition', async (req, res) => {

@@ -6,6 +6,8 @@ const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const SocketsSchema = require('./models/sockets.model');
+const Sockets = mongoose.model('socket', SocketsSchema); //שימוש במודל וסכמה של משתמש
 const { localStrategyHandler, serializeUser, deserializeUser, isValid } = require('./passport');
 const fileUpload = require('express-fileupload');
 const UsersController = require('./controllers/usersController.js');
@@ -22,7 +24,7 @@ const io = require("socket.io")(server, {
     cors: {
         origin: "http://localhost:3000",
         methods: ["GET", "POST"]
-      }
+    }
 });
 const path = require('path');
 const PORT = process.env.PORT || 4423;
@@ -96,13 +98,14 @@ init();
 
 const connection = mongoose.connection;
 
-connection.once("open", () => {
-    console.log('mongodb connected');
-    const changeStream = connection.collection("AutoUsersInfo").watch([], {
-        fullDocument: 'updateLookup'
-      });
-    changeStream.on('change', (changes) => {
-        console.log(changes)
-        io.of("/api/socket").emit('mongoStream', changes);
-    });
-})
+// connection.once("open", () => {
+//     console.log('mongodb connected');
+//     const changeStream = connection.collection("AutoUsersInfo").watch([], {
+//         fullDocument: 'updateLookup'
+//     });
+//     changeStream.on('change', async (changes) => {
+//         const { webId } = await Sockets.findOne({ user: changes.documentKey._id })
+//         console.log(changes.documentKey._id, webId);
+//         io.emit('mongoStream', changes);
+//     });
+// })

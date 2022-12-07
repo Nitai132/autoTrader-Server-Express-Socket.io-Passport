@@ -25,85 +25,72 @@ const createReport = async (positions, userEmail, amount) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-
             SYMBOL: array[i].symbol,
-
-            TYPE: array[i].positionType,
-
+   
+            TYPE: array[i].positionType, 
+        
             DATE: array[i].startDate.substring(0, 10),
-
+        
             "OPEN TIME": array[i].startDate.slice(11),
-
+        
             "CLOSE TIME": array[i].endDate.slice(11),
-
+        
             "END DATE": array[i].endDate.substring(0, 10),
-
-            "TOTAL TRADING TIME": `=E${i + 2}-D${i + 2}`,
-
+         
+            "TOTAL TRADING TIME": `=E${i+2}-D${i+2}`,
+        
             "MARKET CLOSE POSITION PRICE": array[i].endPrice,
-
+        
             "MARKET OPEN POSITION PRICE": array[i].startPrice,
-
+        
             "BUY/SELL": array[i].operation.toUpperCase(),
-
-            "QUANTITY OF SHARES": array[i].quantity,
+        
+            "QUANTITY OF SHARES": array[i].quantity, // Example = 100
+        
+            "MARGIN": array[i].margin.toFixed(2), // LOT SIZE = `=IF(J${i+2}=${buy},H${i+2}*K${i+2},K${i+2}*I${i+2})`
+        
+            "NEW DRAWDOWN%": `=IF(O${i+2}<0, IFERROR(IF(MIN($O$1:O${i+2})<>O${i+2}," ",MIN($O$1:O${i+2})),"")," ")`,
+        
+            "NEW PEAK%": `=IFERROR(IF(MAX($O$1:O${i+2})<>O${i+2}," ",MAX($O$1:O${i+2})),"")`,
+        
+            "PROFIT/LOSS%": `=IFERROR((P${i+2}*100%)/S${i+2},0)`,
+        
+            "PROFIT/LOSS WITHOUT BROKER FEE": `=IF(J${i+2}=${buy},K${i+2}*(H${i+2}-I${i+2}),K${i+2}*(I${i+2}-H${i+2}))`,
+        
+            "BROKER FEE": array[i].totalBrokerFee.toFixed(2), // Example = `=IF(K${i+2}>250,K${i+2}/100,2.5)` 
+        
+            "PROFIT/LOSS WITH BROKER FEE": `=IF(ISBLANK(P${i+2}),0,P${i+2}-Q${i+2})`,
+        
+            EQUITY: `=IF(ISBLANK(A${i+2}),0,S${i+1}+R${i+2})`,
+     
+            "STOP LOSS PRICE": array[i].stopLose, 
+       
+            "TAKE PROFIT 1": "$" + array[i].takeProfit[0].marketPrice + " (" + array[i].takeProfit[0].date.slice(11) + ")", // [{date: "2022-11-16 16:59", marketPrice: "4154.25", quantity: "10"}, {}, {}]
+       
+            "TAKE PROFIT 2": "$" + array[i].takeProfit[1].marketPrice + " (" + array[i].takeProfit[1].date.slice(11) + ")",
             
-            "MARGIN": array[i].margin,
-
-            "LOT SIZE": `=IF(J${i + 2}=${buy},H${i + 2}*K${i + 2},K${i + 2}*I${i + 2})`,
-
-            "NEW DRAWDOWN%": `=IF(O${i + 2}<0, IFERROR(IF(MIN($O$1:O${i + 2})<>O${i + 2}," ",MIN($O$1:O${i + 2})),"")," ")`,
-
-            "NEW PEAK%": `=IFERROR(IF(MAX($O$1:O${i + 2})<>O${i + 2}," ",MAX($O$1:O${i + 2})),"")`,
-
-            "PROFIT/LOSS%": `=IFERROR((P${i + 2}*100%)/S${i + 2},0)`,
-
-            "PROFIT/LOSS WITHOUT BROKER FEE": `=IF(J${i + 2}=${buy},K${i + 2}*(H${i + 2}-I${i + 2}),K${i + 2}*(I${i + 2}-H${i + 2}))`,
-
-            "BROKER FEE": `=IF(K${i + 2}>250,K${i + 2}/100,2.5)`,
-
-            "PROFIT/LOSS WITH BROKER FEE": `=IF(ISBLANK(P${i + 2}),0,P${i + 2}-Q${i + 2})`,
-
-            EQUITY: `=IF(ISBLANK(A${i + 2}),0,S${i + 1}+R${i + 2})`,
-
-            "STOP LOSS PRICE": array[i].stopLoss,
-
-          "TAKE PROFIT 1": tp1,
-
-          "TAKE PROFIT 2": tp2,
-
-          "TAKE PROFIT 3": tp3,
-
-          "TAKE PROFIT 4": tp4,
-
-          "TAKE PROFIT 5": tp5,
-
-          "QUANTITY TAKE PROFIT 1": tpAmount1,
-
-          "QUANTITY TAKE PROFIT 2": tpAmount2,
-
-          "QUANTITY TAKE PROFIT 3": tpAmount3,
-
-          "QUANTITY TAKE PROFIT 4": tpAmount4,
-
-          "QUANTITY TAKE PROFIT 5": tpAmount5,
-
-          "POSITION ID": array[i].IB_ID,
-
-          "POSITION TYPE" : array[i].technology,
-
-            "R1 BUY/SELL": `=IF(J${i + 2}="SELL",T${i + 2}-I${i + 2},I${i + 2}-T${i + 2})`,
-
-            "TAKE PROFIT 1 OPEN POSITION": `=IF(J${i + 2}="SELL",I${i + 2}-U${i + 2},U${i + 2}-I${i + 2})`,
-
-            "TAKE PROFIT 2 OPEN POSITION 1": `=IF(J${i + 2}="SELL",U${i + 2}-V${i + 2},V${i + 2}-U${i + 2})`,
-
-            "TAKE PROFIT 3 OPEN POSITION 2": `=IF(J${i + 2}="SELL",V${i + 2}-W${i + 2},W${i + 2}-V${i + 2})`,
-
-            "TAKE PROFIT 4 OPEN POSITION 3": `=IF(J${i + 2}="SELL",W${i + 2}-X${i + 2},X${i + 2}-W${i + 2})`,
-
-            "TAKE PROFIT 5 OPEN POSITION 4": `=IF(J${i + 2}="SELL",X${i + 2}-Y${i + 2},Y${i + 2}-X${i + 2})`,
-
+            "TAKE PROFIT 3": "$" + array[i].takeProfit[2].marketPrice + " (" + array[i].takeProfit[2].date.slice(11) + ")",
+     
+            "TAKE PROFIT 4": "$" + array[i].takeProfit[3].marketPrice + " (" + array[i].takeProfit[3].date.slice(11) + ")",
+     
+            "TAKE PROFIT 5": "$" + array[i].takeProfit[4].marketPrice + " (" + array[i].takeProfit[4].date.slice(11) + ")",
+       
+            "R1 BUY/SELL": `=IF(J${i+2}="SELL",T${i+2}-I${i+2},I${i+2}-T${i+2})`,
+       
+            "QUANTITY TAKE PROFIT 1": array[i].takeProfit[0].quantity,
+       
+            "QUANTITY TAKE PROFIT 2": array[i].takeProfit[1].quantity,
+       
+            "QUANTITY TAKE PROFIT 3": array[i].takeProfit[2].quantity,
+       
+            "QUANTITY TAKE PROFIT 4": array[i].takeProfit[3].quantity,
+       
+            "QUANTITY TAKE PROFIT 5": array[i].takeProfit[4].quantity,
+     
+            "POSITION ID": array[i].IB_ID,
+     
+            "POSITION TYPE": array[i].technology,
+       
           }),
         })
           .then((r) => r.json())
@@ -123,85 +110,73 @@ const createReport = async (positions, userEmail, amount) => {
         body: JSON.stringify({
 
           SYMBOL: array[0].symbol,
-
+   
           TYPE: array[0].positionType,
-
+         
           DATE: array[0].startDate.substring(0, 10),
-
+      
           "OPEN TIME": array[0].startDate.slice(10),
-
+      
           "CLOSE TIME": array[0].endDate.slice(10),
-
+      
           "END DATE": array[0].endDate.substring(0, 10),
-
-          "TOTAL TRADING TIME": `=E2-D2`,
-
+      
+          "TOTAL TRADING TIME": `=E2-D2`, 
+      
           "MARKET CLOSE POSITION PRICE": array[0].endPrice,
-
+      
           "MARKET OPEN POSITION PRICE": array[0].startPrice,
-
+      
           "BUY/SELL": array[0].operation.toUpperCase(),
-
-          "QUANTITY OF SHARES": array[0].quantity,
-
-          "MARGIN": array[0].margin,
-
-          "LOT SIZE": `=IF(J2=${buy},H2*K2,K2*I2)`,
-
+      
+          "QUANTITY OF SHARES": array[0].quantity, // Example = 100
+      
+          "MARGIN": array[0].margin.toFixed(2), // LOT SIZE = `=IF(J2=${buy},H2*K2,K2*I2)`
+      
           "NEW DRAWDOWN%": `=IFERROR(IF(S2>AF2," ",O2))`,
-
+      
           "NEW PEAK%": `=IFERROR(IF(S2>AF2,O2," "))`,
-
+      
           "PROFIT/LOSS%": `=IFERROR((P2*100%)/S2,0)`,
-
+      
           "PROFIT/LOSS WITHOUT BROKER FEE": `=IF(J2=${buy},K2*(H2-I2),K2*(I2-H2))`,
-
-          "BROKER FEE": `=IF(K2>250,K2/100,2.5)`,
-
+      
+          "BROKER FEE": array[0].totalBrokerFee.toFixed(2), // Example = `=IF(K2>250,K2/100,2.5)`
+      
           "PROFIT/LOSS WITH BROKER FEE": `=IF(ISBLANK(P2),0,P2-Q2)`,
-
-          EQUITY: `=AF2+R2`,
-
-          "STOP LOSS PRICE": array[0].stopLoss,
-
-          "TAKE PROFIT 1": array[0].takeProfit[0]?.marketPrice,
-
-          "TAKE PROFIT 2": array[0].takeProfit[1]?.marketPrice,
-
-          "TAKE PROFIT 3": array[0].takeProfit[2]?.marketPrice,
-
-          "TAKE PROFIT 4": array[0].takeProfit[3]?.marketPrice,
-
-          "TAKE PROFIT 5": array[0].takeProfit[4]?.marketPrice,
-
-          "QUANTITY TAKE PROFIT 1": array[0].takeProfit[0]?.quantity,
-
-          "QUANTITY TAKE PROFIT 2": array[0].takeProfit[1]?.quantity,
-
-          "QUANTITY TAKE PROFIT 3": array[0].takeProfit[2]?.quantity,
-
-          "QUANTITY TAKE PROFIT 4": array[0].takeProfit[3]?.quantity,
-
-          "QUANTITY TAKE PROFIT 5": array[0].takeProfit[4]?.quantity,
-
-          "POSITION ID": array[0].IB_ID,
-
-          "POSITION TYPE" : array[0].technology,
-
+      
+          EQUITY: `=AH2+R2`,
+     
+          "STOP LOSS PRICE": array[0].stopLose,
+     
+          "TAKE PROFIT 1": "$" + array[0].takeProfit[0].marketPrice + " (" + array[0].takeProfit[0].date.slice(11) + ")", // [{date: "2022-11-16 16:59", marketPrice: "4154.25", quantity: "10"}, {}, {}]
+     
+          "TAKE PROFIT 2": "$" + array[0].takeProfit[1].marketPrice + " (" + array[0].takeProfit[1].date.slice(11) + ")",
+          
+          "TAKE PROFIT 3": "$" + array[0].takeProfit[2].marketPrice + " (" + array[0].takeProfit[2].date.slice(11) + ")",
+   
+          "TAKE PROFIT 4": "$" + array[0].takeProfit[3].marketPrice + " (" + array[0].takeProfit[3].date.slice(11) + ")",
+   
+          "TAKE PROFIT 5": "$" + array[0].takeProfit[4].marketPrice + " (" + array[0].takeProfit[4].date.slice(11) + ")",
+   
           "R1 BUY/SELL": `=IF(J2="SELL",T2-I2,I2-T2)`,
-
-          "TAKE PROFIT 1 OPEN POSITION": `=IF(J2="SELL",I2-U2,U2-I2)`,
-
-          "TAKE PROFIT 2 OPEN POSITION 1": `=IF(J2="SELL",U2-V2,V2-U2)`,
-
-          "TAKE PROFIT 3 OPEN POSITION 2": `=IF(J2="SELL",V2-W2,W2-V2)`,
-
-          "TAKE PROFIT 4 OPEN POSITION 3": `=IF(J2="SELL",W2-X2,X2-W2)`,
-
-          "TAKE PROFIT 5 OPEN POSITION 4": `=IF(J2="SELL",X2-Y2,Y2-X2)`,
-
+     
+          "QUANTITY TAKE PROFIT 1": array[0].takeProfit[0].quantity,
+     
+          "QUANTITY TAKE PROFIT 2": array[0].takeProfit[1].quantity,
+     
+          "QUANTITY TAKE PROFIT 3": array[0].takeProfit[2].quantity,
+     
+          "QUANTITY TAKE PROFIT 4": array[0].takeProfit[3].quantity,
+     
+          "QUANTITY TAKE PROFIT 5": array[0].takeProfit[4].quantity,
+   
+          "POSITION ID": array[0].IB_ID,
+   
+          "POSITION TYPE": array[0].technology,
+     
           "Starting Balance Amount": amount,
-
+     
           "EMAIL": userEmail,
         }),
       })
