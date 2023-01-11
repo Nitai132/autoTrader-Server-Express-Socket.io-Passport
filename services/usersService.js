@@ -31,6 +31,7 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
             userID: u._id,
             userType: 'Simulation',
             gatewayStatus: false,
+            TwsStatus: false,
             stocks: {
                 investedBalance: {
                     credits: 0,
@@ -47,7 +48,8 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                 tradesAmount: {
                     buy: 0,
                     sell: 0
-                }
+                },
+                startOfTheDayBalance: 0
             },
             bonds: {
                 investedBalance: {
@@ -65,7 +67,8 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                 tradesAmount: {
                     buy: 0,
                     sell: 0
-                }
+                },
+                startOfTheDayBalance: 0
             },
             comodity: {
                 investedBalance: {
@@ -83,7 +86,8 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                 tradesAmount: {
                     buy: 0,
                     sell: 0
-                }
+                },
+                startOfTheDayBalance: 0
             },
             currencyPairs: {
                 investedBalance: {
@@ -101,7 +105,8 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                 tradesAmount: {
                     buy: 0,
                     sell: 0
-                }
+                },
+                startOfTheDayBalance: 0
             },
             crypto: {
                 investedBalance: {
@@ -119,7 +124,8 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                 tradesAmount: {
                     buy: 0,
                     sell: 0
-                }
+                },
+                startOfTheDayBalance: 0
             },
             indexes: {
                 investedBalance: {
@@ -137,16 +143,27 @@ const Signup = async ({ firstName, lastName, phone, email, password }) => { //ה
                 tradesAmount: {
                     buy: 0,
                     sell: 0
-                }
+                },
+                startOfTheDayBalance: 0
             },
             investedBalance: 0,
             currentBalance: 0,
+            startOfTheDayBalance: 0,
             tradesAmount: {buy: 0, sell: 0}
         });
         const us = new UsersSetup({
             userID: u._id,
             userEmail: email,
             tradingStatus: false,
+            riskActive: false,
+            accountsOnRisk: {
+                stocks: false,
+                comodity: false,
+                bonds: false,
+                crypto: false,
+                indexes: false,
+                currencyPairs: false
+            },
             stocks: {
                 activeAccount: false,
                 sellPositions: false,
