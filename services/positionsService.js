@@ -11,7 +11,7 @@ const LiveRateCrypto = mongoose.model('LiveRateCrypto', liveRateCryptoSchema, 'l
 const LiveRateComodity = mongoose.model('LiveRateComodity', liveRateCryptoSchema, 'liveRateComodity');
 const LiveRateCurrencyPair = mongoose.model('LiveRateCurrencyPair', liveRateCryptoSchema, 'liveRateCurrencyPairs1');
 const LiveRateRest = mongoose.model('LiveRateRest', liveRateCryptoSchema, 'liveRateIndexes');
-const LiveRateStock = mongoose.model('LiveRateStock', liveRateCryptoSchema, 'iexStocks');
+const LiveRateStock = mongoose.model('LiveRateStock', liveRateCryptoSchema, 'liveRateStocks');
 const User = mongoose.model('User', userSchema); //שימוש במודל וסכמה של משתמש
 
 
