@@ -5,6 +5,7 @@ const userSetupSchema = new Schema({
     _id: String,
     userType: String,
     gatewayStatus: Boolean, 
+    twsStatus: Boolean,
     stocks: Object, 
     bonds: Object, 
     comodity: Object, 

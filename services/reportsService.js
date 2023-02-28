@@ -2,7 +2,6 @@ const fetch = require("isomorphic-fetch");
 
 // מייצר את הטבלה מקבל נתונים מהמונגו ושולח דרך שיטס בסט למסמך עצמו 
 const createReport = async (positions, userEmail, amount) => {
-  console.log(positions);
   try {
     var buy = `"BUY"`;
     const delay = (ms) => new Promise((res) => setTimeout(res, ms));
@@ -13,11 +12,16 @@ const createReport = async (positions, userEmail, amount) => {
         let tp3 = array[i].takeProfit[2]?.marketPrice;
         let tp4 = array[i].takeProfit[3]?.marketPrice;
         let tp5 = array[i].takeProfit[4]?.marketPrice;
-        let tpDate1 = array[i].takeProfit[0]?.date.slice(11);
-        let tpDate2 = array[i].takeProfit[1]?.date.slice(11);
-        let tpDate3 = array[i].takeProfit[2]?.date.slice(11);
-        let tpDate4 = array[i].takeProfit[3]?.date.slice(11);
-        let tpDate5 = array[i].takeProfit[4]?.date.slice(11);
+        let tpDate1;
+        array[i].takeProfit[0]?.date == 0 ? tpDate1 = 0 : tpDate1 = array[i].takeProfit[0]?.date.slice(11);
+        let tpDate2;
+        array[i].takeProfit[1]?.date == 0 ? tpDate2 = 0 : tpDate1 = array[i].takeProfit[1]?.date.slice(11);
+        let tpDate3;
+        array[i].takeProfit[2]?.date == 0 ? tpDate3 = 0 : tpDate1 = array[i].takeProfit[2]?.date.slice(11);
+        let tpDate4;
+        array[i].takeProfit[3]?.date == 0 ? tpDate4 = 0 : tpDate1 = array[i].takeProfit[3]?.date.slice(11);
+        let tpDate5;
+        array[i].takeProfit[4]?.date == 0 ? tpDate5 = 0 : tpDate1 = array[i].takeProfit[4]?.date.slice(11);
         let tpAmount1 = array[i].takeProfit[0]?.quantity;
         let tpAmount2 = array[i].takeProfit[1]?.quantity;
         let tpAmount3 = array[i].takeProfit[2]?.quantity;
@@ -56,9 +60,9 @@ const createReport = async (positions, userEmail, amount) => {
             "MARGIN": array[i].margin, // LOT SIZE = `=IF(J${i+2}=${buy},H${i+2}*K${i+2},K${i+2}*I${i+2})`
         
             "NEW DRAWDOWN%": `=IF(O${i+2}<0, IFERROR(IF(MIN($O$1:O${i+2})<>O${i+2}," ",MIN($O$1:O${i+2})),"")," ")`,
-        
-            "NEW PEAK%": `=IFERROR(IF(MAX($O$1:O${i+2})<>O${i+2}," ",MAX($O$1:O${i+2})),"")`,
-        
+            // 25.1.23
+            "NEW PEAK%": `=IF(O${i+2}>0, IFERROR(IF(MAX($O$1:O${i+2})<>O${i+2}," ",MAX($O$1:O${i+2})),"")," ")`,
+            
             "PROFIT/LOSS%": `=IFERROR((P${i+2}*100%)/S${i+2},0)`,
         
             "PROFIT/LOSS WITHOUT BROKER FEE": `=IF(J${i+2}=${buy},K${i+2}*(H${i+2}-I${i+2}),K${i+2}*(I${i+2}-H${i+2}))`,
@@ -69,17 +73,17 @@ const createReport = async (positions, userEmail, amount) => {
         
             EQUITY: `=IF(ISBLANK(A${i+2}),0,S${i+1}+R${i+2})`,
      
-            "STOP LOSS PRICE": array[i].stopLose, 
+            "STOP LOSS PRICE": array[i].stopLoss, 
        
             "TAKE PROFIT 1": "$" +tp1 + " (" + tpDate1 + ")", // [{date: "2022-11-16 16:59", marketPrice: "4154.25", quantity: "10"}, {}, {}]
        
-            "TAKE PROFIT 2": "$" + tp2 + " (" + tpDate1 + ")",
+            "TAKE PROFIT 2": "$" + tp2 + " (" + tpDate2 + ")",
             
-            "TAKE PROFIT 3": "$" + tp3 + " (" + tpDate1 + ")",
+            "TAKE PROFIT 3": "$" + tp3 + " (" + tpDate3 + ")",
      
-            "TAKE PROFIT 4": "$" + tp4 + " (" + tpDate1 + ")",
+            "TAKE PROFIT 4": "$" + tp4 + " (" + tpDate4 + ")",
      
-            "TAKE PROFIT 5": "$" + tp5 + " (" + tpDate1 + ")",
+            "TAKE PROFIT 5": "$" + tp5 + " (" + tpDate5 + ")",
        
             "R1 BUY/SELL": `=IF(J${i+2}="SELL",T${i+2}-I${i+2},I${i+2}-T${i+2})`,
        
@@ -100,8 +104,8 @@ const createReport = async (positions, userEmail, amount) => {
           }),
         })
           .then((r) => r.json())
-          .then(console.log)
-          .catch(console.error);
+          .then(console.log())
+          .catch((err) => {console.log(err, "problem1")});
       }
 
       await delay(20000);
@@ -168,7 +172,7 @@ const createReport = async (positions, userEmail, amount) => {
       
           EQUITY: `=AH2+R2`,
      
-          "STOP LOSS PRICE": array[0].stopLose,
+          "STOP LOSS PRICE": array[0].stopLoss,
      
           "TAKE PROFIT 1": "$" + tp1 + " (" + tpDate1 + ")", // [{date: "2022-11-16 16:59", marketPrice: "4154.25", quantity: "10"}, {}, {}]
      
@@ -203,12 +207,12 @@ const createReport = async (positions, userEmail, amount) => {
       })
         .then((r) => r.json())
         .then(console.log)
-        .catch(console.error);
+        .catch((err) => {console.log(err, "problem2")});
     }
     createSheet('Position', positions, userEmail, amount);
   } catch (err) {
     //במקרה של כשלון
-    console.log(err)
+    console.log(err, "problem3")
     throw err;
   }
 };
