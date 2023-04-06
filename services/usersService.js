@@ -5,7 +5,9 @@ const userSetupSchema = require('../models/userSetup.model');
 const userInfoSchema = require('../models/usersInfo.model');
 const SymbolsSchema = require('../models/Symbols.model');
 const AutoUsersSymbolsSchema = require('../models/AutoUsersSymbols.model');
+const PositionsTypesSchema = require('../../../autoTrader/server/models/positionsTypes.model');
 
+const PositionsTypes = mongoose.model('positionsTypes', PositionsTypesSchema, 'positionsTypes');
 
 const User = mongoose.model('User', userSchema); //שימוש במודל וסכמה של משתמש
 
@@ -22,8 +24,9 @@ const UserSymbols = mongoose.model('AutoUsersSymbols', AutoUsersSymbolsSchema);
 
 const Signup = async ({ firstName, lastName, phone, email, password }) => { //הרשמה למערכת 
     try {
-        const s = await Symbols.find({});
-        const AUS = new UserSymbols({ email: email, symbols: s })
+        const s = await PositionsTypes.find({});
+        console.log(s[0])
+        const AUS = new UserSymbols({ email: email, symbols: s[0]})
         const u = new User({ firstName, lastName, email, phone, password, isAdmin: 0, credits: 0 }); //יצירת משתמש חדש
         const p = new AutoUsersPositions({ user: email, userID: u._id, stocks: [], bonds: [], comodity: [], currencyPairs: [], crypto: [], indexes: [] });
         const ui = new UsersInfo({

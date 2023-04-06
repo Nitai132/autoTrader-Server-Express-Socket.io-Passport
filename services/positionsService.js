@@ -4,6 +4,10 @@ const AutoUsersPositionsSchema = require('../models/AutoUsersPositions.model');
 const liveRateCryptoSchema = require('../models/liveRateCrypto.model');
 const userSchema = require('./../models/users.model');
 const UsersPositionsIBSchema = require('./../models/usersPositionsIB.model');
+const PositionsTypesSchema = require('../../../autoTrader/server/models/positionsTypes.model');
+const ShopSchema = require('../../../autoTrader/server/models/shop.model');
+
+const PositionsTypes = mongoose.model('positionsTypes', PositionsTypesSchema, 'positionsTypes');
 const AutoUserPositions = mongoose.model('userPositions', AutoUsersPositionsSchema, 'AutoUsersPositions');
 const UsersPositionsIB = mongoose.model('usersPositionsIB', UsersPositionsIBSchema, 'usersPositionsIB')
 const LiveRateBond = mongoose.model('LiveRateBond', liveRateBondSchema, 'liveRateBonds');
@@ -12,6 +16,7 @@ const LiveRateComodity = mongoose.model('LiveRateComodity', liveRateCryptoSchema
 const LiveRateCurrencyPair = mongoose.model('LiveRateCurrencyPair', liveRateCryptoSchema, 'liveRateCurrencyPairs1');
 const LiveRateRest = mongoose.model('LiveRateRest', liveRateCryptoSchema, 'liveRateIndexes');
 const LiveRateStock = mongoose.model('LiveRateStock', liveRateCryptoSchema, 'liveRateStocks');
+const Shop = mongoose.model('shop', ShopSchema, 'shop');
 const User = mongoose.model('User', userSchema); //שימוש במודל וסכמה של משתמש
 
 
@@ -210,6 +215,25 @@ const refundUsers = async (usersArray) => {
     };
 };
 
+const getPositionsTypes = async () => {
+    try {
+        const Types = await PositionsTypes.find({});
+        return Types[0]
+    } catch (err) {
+        console.log(err);
+        throw err;
+    };
+};
+
+const getShopPositions = async () => {
+    try {
+        const positions = await Shop.find({});
+        return positions
+    } catch (err) {
+        console.log(err);
+        throw err;
+    };
+};
 
 module.exports = {
     getBond,
@@ -227,5 +251,7 @@ module.exports = {
     getAllPairs,
     checkUsersWithFalsePosition,
     refundUsers,
-    getActivePositions
+    getActivePositions,
+    getPositionsTypes,
+    getShopPositions
 }

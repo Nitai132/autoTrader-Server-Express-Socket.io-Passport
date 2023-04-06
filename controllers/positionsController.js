@@ -17,8 +17,21 @@ const {
     getAllPairs,
     checkUsersWithFalsePosition,
     refundUsers,
-    getActivePositions
+    getActivePositions,
+    getPositionsTypes,
+    getShopPositions
 } = require('../services/positionsService');
+
+
+router.get('/types', async (req, res) => {
+    try {
+        const types = await getPositionsTypes();
+        return res.json(types);
+    } catch (err) {
+        console.log(err);
+        return res.sendStatus(400);
+    };
+});
 
 //שמוצא פוזיציה מסוג בונד לפי איידי API
 router.get('/getBond/:id', async (req, res) => {
@@ -192,6 +205,16 @@ router.post('/falsePosition', async (req, res) => {
     } catch (err) {
         console.log(err); // במקרה של כשלון
         res.sendStatus(400);
+    };
+});
+
+router.get('/getShopPositions', async (req, res) => {
+    try {
+        const positions = await getShopPositions();
+        return res.json(positions);
+    } catch (err) {
+        console.log(err);
+        return res.sendStatus(400);
     };
 });
 
