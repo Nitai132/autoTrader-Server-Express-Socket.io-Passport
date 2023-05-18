@@ -1,4 +1,9 @@
+const mongoose = require('mongoose');
 const fetch = require("isomorphic-fetch");
+const usersReportsSchema = require('../../../autoTrader/server/models/usersReports.model');
+const usersReports = mongoose.model('usersReports', usersReportsSchema, 'usersReports');
+
+
 
 // מייצר את הטבלה מקבל נתונים מהמונגו ושולח דרך שיטס בסט למסמך עצמו 
 const createReport = async (positions, userEmail, amount) => {
@@ -217,4 +222,9 @@ const createReport = async (positions, userEmail, amount) => {
   }
 };
 
-module.exports = { createReport };
+const saveLink = async (userEmail, link)=> {
+  const Link = new usersReports({ userEmail: userEmail, link: link }); //יצירת אימייל חדש
+  return await Link.save(); //שמירת האימייל בדאטא בייס
+}
+
+module.exports = { createReport, saveLink };
