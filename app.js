@@ -20,6 +20,7 @@ const usersSymbolsController = require('./controllers/usersSymbolsController');
 const reportsController = require('./controllers/reportsController');
 const exchangeController = require('./controllers/exchangesController');
 const server = require("http").createServer(app);
+const bodyParser = require('body-parser');
 const io = require("socket.io")(server, {
     cors: {
         origin: "http://localhost:3000",
@@ -33,7 +34,8 @@ const dbString = "mongodb+srv://jovany:Jj12345@cluster0.4mfvt.mongodb.net/Tradin
 const cors = require('cors')
 
 app.use(express.json()); //שימוש בג'ייסון
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json({limit: "50mb"}));
+app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
 app.use(cookieParser()); //שימוש בקוקיז
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload()); //אפשרות להעלות קבצים
